@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stardew Fishing Loop</title>
+    <title>Fish Hunt</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -730,6 +730,15 @@
         .heart-box.glow-win { box-shadow: inset 0 -8px 20px rgba(0,0,0,0.35), 0 10px 26px rgba(0,0,0,0.6), 0 0 40px rgba(80,255,120,0.28); }
         .heart-box.glow-fail { box-shadow: inset 0 -8px 20px rgba(0,0,0,0.35), 0 10px 26px rgba(0,0,0,0.6), 0 0 40px rgba(255,80,80,0.28); }
 
+        /* whole-screen subtle flash for win/fail */
+        #screenFlash { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; opacity:0; transition: opacity 180ms ease; z-index:999; }
+        #screenFlash.success { background: rgba(80,255,120,0.12); opacity:1; }
+        #screenFlash.fail { background: rgba(255,80,80,0.12); opacity:1; }
+
+        /* small shake on the brown box */
+        .heart-box.shake { animation: screenShake 420ms ease-in-out; }
+        @keyframes screenShake { 0%{ transform: translate(-50%, -50%) } 10%{ transform: translate(calc(-50% - 6px), -50%) } 30%{ transform: translate(calc(-50% + 6px), -50%) } 50%{ transform: translate(calc(-50% - 3px), -50%) } 70%{ transform: translate(calc(-50% + 3px), -50%) } 100%{ transform: translate(-50%, -50%) } }
+
         /* Hearts / Lives display - centered inside the brown box with glow */
         .lives {
             position: absolute;
@@ -1044,6 +1053,21 @@
                 if(i < lives){ h.classList.remove('inactive'); h.classList.add('active'); }
                 else { h.classList.remove('active'); h.classList.add('inactive'); }
             });
+        }
+
+        // screen flash helper (success/fail)
+        function flashScreen(type){
+            var el = document.getElementById('screenFlash'); if(!el) return;
+            el.classList.remove('success','fail');
+            el.classList.add(type);
+            setTimeout(function(){ el.classList.remove(type); }, 500);
+        }
+
+        // small shake helper on the brown box
+        function shakeHeartBox(){
+            var hb = document.getElementById('heartBox'); if(!hb) return;
+            hb.classList.add('shake');
+            setTimeout(function(){ hb.classList.remove('shake'); }, 420);
         }
 
         function loseLife(){
