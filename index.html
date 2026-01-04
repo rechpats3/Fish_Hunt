@@ -417,6 +417,39 @@
         .water-sheen { position: absolute; left: 50%; transform: translateX(-50%); top: 6%; width: 84%; height: 10px; background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0)); border-radius: 6px; opacity: 0.9; z-index: 47; filter: blur(2px); pointer-events:none; }
         @keyframes gentleWave { 0% { transform: translateX(-50%) translateY(0) } 100% { transform: translateX(-50%) translateY(-10px) } }
 
+        /* Pond stones (decorative—place around pool edge). Now rendered in front of the water. */
+        .pool-stones { position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); width: 98%; height: 118px; pointer-events: none; z-index: 62; display:block; }
+        .pool-stones .stone { position: absolute; bottom: 0; border-radius: 50%; background: linear-gradient(180deg,#6b6a66 0%, #4b4a46 100%); box-shadow: 0 10px 26px rgba(0,0,0,0.7); transform-origin: center; }
+        .pool-stones .stone:after { content: ''; position: absolute; left: 8%; top: 8%; width: 84%; height: 70%; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.06)); opacity: 0.6; pointer-events: none; mix-blend-mode: overlay; }
+        /* individual stones: size, position and rotation (expanded to 20 stones) */
+        .stone.s1  { left:  2%; width: 82px; height: 48px; transform: rotate(-8deg); }
+        .stone.s2  { left:  8%; width: 44px; height: 28px; transform: rotate(6deg); }
+        .stone.s3  { left: 14%; width: 92px; height: 56px; transform: rotate(-12deg); }
+        .stone.s4  { left: 22%; width: 54px; height: 36px; transform: rotate(10deg); }
+        .stone.s5  { left: 28%; width: 72px; height: 42px; transform: rotate(-6deg); }
+        .stone.s6  { left: 34%; width: 48px; height: 30px; transform: rotate(4deg); }
+        .stone.s7  { left: 40%; width: 76px; height: 46px; transform: rotate(-10deg); }
+        .stone.s8  { left: 46%; width: 62px; height: 40px; transform: rotate(8deg); }
+        .stone.s9  { left: 52%; width: 56px; height: 36px; transform: rotate(-4deg); }
+        .stone.s10 { left: 58%; width: 86px; height: 52px; transform: rotate(10deg); }
+        .stone.s11 { left: 64%; width: 52px; height: 34px; transform: rotate(-6deg); }
+        .stone.s12 { left: 70%; width: 68px; height: 40px; transform: rotate(12deg); }
+        .stone.s13 { left: 76%; width: 46px; height: 30px; transform: rotate(-8deg); }
+        .stone.s14 { left: 80%; width: 58px; height: 36px; transform: rotate(6deg); }
+        .stone.s15 { left: 84%; width: 38px; height: 26px; transform: rotate(12deg); }
+        .stone.s16 { left: 88%; width: 66px; height: 40px; transform: rotate(-4deg); }
+        .stone.s17 { left: 92%; width: 48px; height: 30px; transform: rotate(8deg); }
+        .stone.s18 { left: 94%; width: 54px; height: 34px; transform: rotate(-10deg); }
+        .stone.s19 { left: 96%; width: 36px; height: 24px; transform: rotate(6deg); }
+        .stone.s20 { left: 98%; width: 28px; height: 20px; transform: rotate(-6deg); }
+        @media (max-width: 700px) {
+            .pool-stones { height: 82px; }
+            .stone.s1 { width: 64px; height: 40px; }
+            .stone.s3 { width: 80px; height: 48px; }
+            .stone.s7 { width: 64px; height: 40px; }
+            .stone.s10 { width: 68px; height: 38px; }
+        }
+
         /* Responsive tweaks */
         @media (max-width: 700px) {
             .market-stall { top: 8%; height: 160px; }
@@ -645,29 +678,95 @@
             left: 50%;
             transform: translateX(-50%);
             top: 50%;
-            margin-top: -25px;
+            margin-top: -28px;
             width: 500px;
-            background-color: #e0e0e0;
-            border-radius: 15px;
+            height: 56px;
+            background: linear-gradient(180deg, #b9652a 0%, #9c4f1f 100%);
+            border-radius: 12px;
             overflow: hidden;
             opacity: 0;
             pointer-events: none;
             z-index: 60;
             transition: opacity 0.12s ease;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-            border: 3px solid #333;
+            box-shadow: inset 0 -8px 20px rgba(0,0,0,0.35), 0 10px 26px rgba(0,0,0,0.6);
+            border: 4px solid #5a2c14;
         }
 
         .progress-bar {
             width: 0%; /* Updated dynamically by JavaScript */
-            height: 50px;
-            background-color: #4caf50; /* Green */
-            transition: width 0.02s linear;
+            height: 12px;
+            background-color: #ffd9a0; /* warm inner bar */
+            border-radius: 10px;
+            margin: 22px 16px; /* center the inner bar with spacing */
+            transition: width 0.02s linear, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.35);
         }
 
         .progress-container.active {
             opacity: 1;
         }
+
+        /* The brown heart box that sits above the water */
+        .heart-box {
+            position: absolute;
+            left: 50%;
+            top: 38%;
+            transform: translate(-50%, -50%);
+            width: 520px;
+            height: 64px;
+            background: linear-gradient(180deg, #b9652a 0%, #9c4f1f 100%);
+            border-radius: 12px;
+            box-shadow: inset 0 -8px 20px rgba(0,0,0,0.35), 0 10px 26px rgba(0,0,0,0.6);
+            border: 4px solid #5a2c14;
+            z-index: 58;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            pointer-events:none;
+        }
+
+        .heart-box .lives { position: relative; left:auto; top:auto; transform:none; display:flex; gap:14px; }
+        /* win/fail glow */
+        .heart-box.glow-win { box-shadow: inset 0 -8px 20px rgba(0,0,0,0.35), 0 10px 26px rgba(0,0,0,0.6), 0 0 40px rgba(80,255,120,0.28); }
+        .heart-box.glow-fail { box-shadow: inset 0 -8px 20px rgba(0,0,0,0.35), 0 10px 26px rgba(0,0,0,0.6), 0 0 40px rgba(255,80,80,0.28); }
+
+        /* Hearts / Lives display - centered inside the brown box with glow */
+        .lives {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            z-index: 80;
+            pointer-events: none;
+        }
+        .lives .heart {
+            color: #ff6b6b;
+            font-size: 26px;
+            line-height: 1;
+            text-shadow: 0 4px 12px rgba(255,100,100,0.9);
+            transition: opacity 0.12s ease, transform 0.12s ease, text-shadow 0.12s ease;
+            opacity: 1;
+            filter: drop-shadow(0 6px 12px rgba(255,100,100,0.55));
+        }
+        .lives .heart.active {
+            animation: heartGlow 1.6s ease-in-out infinite;
+        }
+        .lives .heart.inactive {
+            opacity: 0.22;
+            transform: scale(0.9);
+            filter: grayscale(1) brightness(0.7) drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+            animation: none;
+        }
+        .lives .heart.lost { animation: heartLoss 420ms forwards; }
+        @keyframes heartGlow {
+            0% { transform: scale(1); text-shadow: 0 4px 8px rgba(255,100,100,0.7); }
+            50% { transform: scale(1.08); text-shadow: 0 8px 30px rgba(255,120,120,0.95); }
+            100% { transform: scale(1); text-shadow: 0 4px 8px rgba(255,100,100,0.7); }
+        }
+        @keyframes heartLoss { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.6) translateY(-8px); opacity: 0; } }
 
         .notification-exclamation {
             position: absolute;
@@ -803,6 +902,7 @@
                 <div class="pool-rim"></div>
                 <div class="pool-tiles" aria-hidden="true"></div>
                 <div class="pool-shadow"></div>
+                <!-- stones moved below to appear in front of the water -->
                 <div class="pool-water">
                     <div class="water-sheen" aria-hidden="true"></div>
                     <!-- Wrap fish in rounded containers and use all pictures from /picture -->
@@ -822,6 +922,29 @@
                     <div class="ripple r1"></div>
                     <div class="ripple r2"></div>
                     <div class="ripple r3"></div>
+                </div>
+                <!-- moved stones forward to overlap the water edge (visual containment) -->
+                <div class="pool-stones" aria-hidden="true">
+                    <div class="stone s1"></div>
+                    <div class="stone s2"></div>
+                    <div class="stone s3"></div>
+                    <div class="stone s4"></div>
+                    <div class="stone s5"></div>
+                    <div class="stone s6"></div>
+                    <div class="stone s7"></div>
+                    <div class="stone s8"></div>
+                    <div class="stone s9"></div>
+                    <div class="stone s10"></div>
+                    <div class="stone s11"></div>
+                    <div class="stone s12"></div>
+                    <div class="stone s13"></div>
+                    <div class="stone s14"></div>
+                    <div class="stone s15"></div>
+                    <div class="stone s16"></div>
+                    <div class="stone s17"></div>
+                    <div class="stone s18"></div>
+                    <div class="stone s19"></div>
+                    <div class="stone s20"></div>
                 </div>
             </div>
             <div id="waterSplash" class="water-splash">
@@ -910,6 +1033,56 @@
         var castHoldTime = 0;
         var castHoldInterval = null;
         const CAST_HOLD_DURATION = 500; // 0.5 seconds in milliseconds
+
+        // Lives / Hearts mechanic
+        let lives = 3;
+        function updateLivesDisplay(){
+            const el = document.getElementById('livesDisplay');
+            if(!el) return;
+            const hearts = Array.from(el.querySelectorAll('.heart'));
+            hearts.forEach((h, i) => {
+                if(i < lives){ h.classList.remove('inactive'); h.classList.add('active'); }
+                else { h.classList.remove('active'); h.classList.add('inactive'); }
+            });
+        }
+
+        function loseLife(){
+            var prev = lives;
+            lives = Math.max(0, lives - 1);
+            const el = document.getElementById('livesDisplay');
+            const hearts = el ? Array.from(el.querySelectorAll('.heart')) : [];
+            const lostIdx = lives; // the index of the heart that was just lost
+            if(hearts[lostIdx]){ hearts[lostIdx].classList.add('lost'); setTimeout(()=>{ hearts[lostIdx] && hearts[lostIdx].classList.remove('lost'); }, 420); }
+            updateLivesDisplay();
+            // Add a short red glow to the heart box to indicate failure
+            const hb = document.getElementById('heartBox');
+            if(hb){ hb.classList.add('glow-fail'); setTimeout(()=> hb.classList.remove('glow-fail'), 500); }
+            if(lives > 0){
+                try{ if(window.playFailSound) window.playFailSound(); }catch(e){}
+                toastr.warning("You lost a heart! " + lives + " left", "Ouch");
+                // wait 1s so the player sees the red glow/toast before resetting
+                setTimeout(()=> resetGame("You lost a heart! " + lives + " left"), 1000);
+            } else {
+                try{ if(window.playGameOverSound) window.playGameOverSound(); }catch(e){}
+                toastr.error("Game Over! Returning to menu", "Game Over");
+                // wait 1s for the glow/toast, then return to menu
+                setTimeout(()=>{
+                    // Reset scores and UI, then return to main menu
+                    score = 0; caughtFish = 0; updateScoreDisplay(); updateFishPond();
+                    try{ resetGame(); }catch(e){}
+                    $("#minigameLayer").hide();
+                    $("#gameScene").fadeOut(0, function(){ $("#menuScreen").fadeIn(500); });
+                    // set game-over state and reset lives
+                    gameOver = true;
+                    lives = 3; if(el) hearts.forEach(h=> h.classList.remove('lost'));
+                    updateLivesDisplay();
+                    isGameActive = false; isReelingPhase = false; isMouseHeld = false; isCasting = false;
+                    $("#castBtn").show().prop('disabled', false).text('Cast Line');
+                    $("#restartBtn").hide();
+                    $("#statusText").text("Welcome to the Night Market!");
+                }, 1000);
+            }
+        }
         
         // Physics variables (using 0-100 scale for %)
         var baitPos = 85; 
@@ -957,6 +1130,9 @@
                     isCasting = true;
                     castHoldTime = 0;
                     $("#castProgressBar").addClass("active");
+
+                    // start subtle charge sound
+                    if(window.startCastCharge) try{ window.startCastCharge(); }catch(e){}
                     
                     castHoldInterval = setInterval(function() {
                         castHoldTime += 20;
@@ -972,6 +1148,9 @@
                     // Normal minigame click
                     isMouseHeld = true;
                     $(".fishing .rod .reel .handle").addClass("reelin").removeClass("reelout");
+                    // start reeling sound + short click
+                    if(window.startReelSound) try{ window.startReelSound(); }catch(e){}
+                    if(window.playPlink) try{ window.playPlink(); }catch(e){}
                 }
             });
 
@@ -983,11 +1162,17 @@
                     castHoldTime = 0;
                     $("#castProgressBar").removeClass("active");
                     $("#castProgressBarFill").css("width", "0%");
+
+                    // stop cast charge
+                    if(window.stopCastCharge) try{ window.stopCastCharge(); }catch(e){}
                 }
                 
                 if(isReelingPhase) {
                     isMouseHeld = false;
                     $(".fishing .rod .reel .handle").removeClass("reelin").addClass("reelout");
+
+                    // stop reeling sound
+                    if(window.stopReelSound) try{ window.stopReelSound(); }catch(e){}
                 }
             });
 
@@ -996,6 +1181,20 @@
                 "positionClass": "toast-bottom-center",
                 "timeOut": "3000",
             }
+            // initialize lives UI
+            updateLivesDisplay();
+
+            // Ensure the heart box (brown box above water) exists and contains the lives display
+            (function ensureHeartBox(){
+                if(document.getElementById('heartBox')) return;
+                var gameScene = document.querySelector('.game-scene'); if(!gameScene) return;
+                var hb = document.createElement('div'); hb.className = 'heart-box'; hb.id = 'heartBox';
+                hb.innerHTML = '<div class="lives" id="livesDisplay">\n                    <i class="fas fa-heart heart active"></i>\n                    <i class="fas fa-heart heart active"></i>\n                    <i class="fas fa-heart heart active"></i>\n                </div>';
+                // Insert after the cat avatar in the scene
+                var cat = gameScene.querySelector('.cat-avatar');
+                if(cat && cat.parentNode) cat.parentNode.insertBefore(hb, cat.nextSibling);
+                updateLivesDisplay();
+            })();
 
             // Convert opaque white-ish backgrounds in fish images to transparent using canvas
             function makeTransparentSprite(imgEl, threshold) {
@@ -1110,6 +1309,9 @@
             
             // Trigger water splash effect
             triggerWaterSplash();
+            // stop any charge and play cast release sound
+            if(window.stopCastCharge) try{ window.stopCastCharge(); }catch(e){}
+            if(window.playCastRelease) try{ window.playCastRelease(); }catch(e){}
             
             // After 0.7 seconds, switch back to relaxed image (simulating line landing)
             setTimeout(function() {
@@ -1142,6 +1344,7 @@
             // Allow clicking anywhere (or touching) to start the minigame during the bite window.
             // Use namespaced one-time handlers so we can remove them cleanly.
             $(document).one('mousedown.bite touchstart.bite click.bite', function(e) {
+                if(window.playPlink) try{ window.playPlink(); }catch(e){}
                 if(isGameActive && !isReelingPhase) startMinigame();
             });
 
@@ -1150,6 +1353,8 @@
                 if(!isReelingPhase && isGameActive) {
                     // Remove any bite handlers that didn't fire
                     $(document).off('mousedown.bite touchstart.bite click.bite');
+                    // failure sound for missed bite
+                    if(window.playFailSound) try{ window.playFailSound(); }catch(e){}
                     resetGame("You missed the bite!");
                 }
             }, 1500);
@@ -1276,7 +1481,7 @@
 
             // Check Loss Condition
             if (progress <= 0 && isGameActive && isReelingPhase) {
-                gameLose();
+                loseLife();
                 return; // Exit loop
             }
 
@@ -1291,17 +1496,28 @@
 
         // --- END GAME STATES ---
         function gameWin() {
+            // green glow on heart box for 0.5s, then reset after 1s
+            const hb = document.getElementById('heartBox');
+            if(hb){ hb.classList.add('glow-win'); setTimeout(()=> hb.classList.remove('glow-win'), 500); }
             toastr.success("You caught the fish!", "SUCCESS");
-            resetGame("Fish Caught! Cast again?");
+            // celebratory catch sound
+            if(window.playCatchSound) try{ window.playCatchSound(); }catch(e){}
+            setTimeout(()=> {
+                resetGame("Fish Caught! Cast again?");
+            }, 1000);
         }
 
         function gameLose() {
-            toastr.error("The fish got away!", "LOST");
-            resetGame("Fish escaped! Cast again?");
+            // Use lives mechanic instead of immediate game over
+            loseLife();
         }
 
         function resetGame(msg) {
             cancelAnimationFrame(gameLoopReq);
+
+            // ensure any audio loops stop
+            if(window.stopReelSound) try{ window.stopReelSound(); }catch(e){}
+            if(window.stopCastCharge) try{ window.stopCastCharge(); }catch(e){}
             
             // Clear casting state
             isCasting = false;
@@ -1334,5 +1550,276 @@
 
     })(jQuery);
     </script>
+    <!-- Audio controls: toggle + volume -->
+    <div id="audioControls" style="position:fixed; right:18px; bottom:18px; z-index:999; pointer-events:all; display:flex; gap:8px; align-items:center;">
+        <button id="audioToggle" class="action-btn" style="padding:8px 12px; font-size:14px;">🔈</button>
+    </div>
+
+    <script>
+    let audioCtx = null;
+    let masterGain = null;
+    let ambientGain = null;
+    let ambientRunning = false;
+    let audioMuted = false;
+    document.addEventListener('DOMContentLoaded', function(){
+        const startBtn = document.getElementById('startBtn');
+        const audioToggle = document.getElementById('audioToggle');
+
+        let DEFAULT_VOLUME = 0.38; // no in-game slider — default level
+
+        function initAudio(){
+            if(audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.gain.value = DEFAULT_VOLUME;
+            masterGain.connect(audioCtx.destination);
+
+            ambientGain = audioCtx.createGain();
+            ambientGain.gain.value = 0.0;
+            ambientGain.connect(masterGain);
+
+            // create noise buffer for ambient (looping gentle noise)
+            const bufferSize = audioCtx.sampleRate * 2;
+            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = noiseBuffer.getChannelData(0);
+            for(let i=0;i<bufferSize;i++) data[i]=(Math.random()*2-1)*0.4;
+            const noiseSource = audioCtx.createBufferSource();
+            noiseSource.buffer = noiseBuffer;
+            noiseSource.loop = true;
+
+            // filter + gentle LFO for movement
+            const lp = audioCtx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1400;
+            const hp = audioCtx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 200;
+
+            // tremolo
+            const lfo = audioCtx.createOscillator();
+            lfo.type = 'sine'; lfo.frequency.value = 0.07;
+            const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 0.25;
+            lfo.connect(lfoGain);
+            lfoGain.connect(ambientGain.gain);
+
+            noiseSource.connect(lp); lp.connect(hp); hp.connect(ambientGain);
+
+            noiseSource.start();
+            lfo.start();
+
+            // store nodes so we can adjust volume
+            initAudio._noiseSource = noiseSource;
+            initAudio._lfo = lfo;
+        }
+
+        function startAmbient(){
+            if(!audioCtx) initAudio();
+            if(!ambientRunning){
+                ambientGain.gain.setTargetAtTime(DEFAULT_VOLUME*0.6, audioCtx.currentTime, 0.5);
+                ambientRunning = true;
+                audioToggle.textContent = '🔊';
+            }
+        }
+
+        function stopAmbient(){
+            if(!audioCtx) return;
+            ambientGain.gain.setTargetAtTime(0.0, audioCtx.currentTime, 0.5);
+            ambientRunning = false;
+            audioToggle.textContent = '🔈';
+        }
+
+        function setMasterVolume(v){
+            if(masterGain) masterGain.gain.value = v;
+        }
+
+        audioToggle && audioToggle.addEventListener('click', function(){
+            if(!audioCtx) initAudio();
+            audioMuted = !audioMuted;
+            setMasterVolume(audioMuted?0: DEFAULT_VOLUME);
+            audioToggle.textContent = audioMuted? '🔈':'🔊';
+        });
+            audioToggle.textContent = audioMuted? '🔈':'🔊';
+        });
+
+        // Ensure audio is initialized and resumed on user gestures
+        function ensureAudio(){
+            try{
+                if(!audioCtx){
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    masterGain = audioCtx.createGain();
+                    masterGain.gain.value = (typeof DEFAULT_VOLUME !== 'undefined' ? DEFAULT_VOLUME : 0.38);
+                    masterGain.connect(audioCtx.destination);
+                    ambientGain = audioCtx.createGain(); ambientGain.gain.value = 0.0; ambientGain.connect(masterGain);
+                }
+                if(audioCtx.state === 'suspended' && audioCtx.resume) audioCtx.resume();
+                return true;
+            }catch(e){ console.warn('Audio init failed', e); return false; }
+        }
+
+        // Try to resume/init audio on first user interaction to make it more reliable
+        function _resumeOnFirstGesture(){
+            function onFirst(){ ensureAudio(); window.removeEventListener('pointerdown', onFirst); }
+            window.addEventListener('pointerdown', onFirst, { once: true });
+        }
+        _resumeOnFirstGesture();
+
+        // Sound effects (simple oscillator-based)
+        function playSound(frequency, duration, type = 'sine', volume = 0.3){
+            if(!ensureAudio() || audioMuted) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(masterGain);
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            oscillator.type = type;
+            gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+
+        function playCastSound() {
+            // Swish sound for casting
+            playSound(200, 0.3, 'sawtooth', 0.2);
+            setTimeout(() => playSound(150, 0.2, 'sawtooth', 0.15), 100);
+        }
+
+        function playBiteSound() {
+            // Alert/notification sound
+            playSound(800, 0.1, 'square', 0.3);
+            setTimeout(() => playSound(1000, 0.1, 'square', 0.3), 150);
+            setTimeout(() => playSound(1200, 0.1, 'square', 0.3), 300);
+        }
+
+        function playReelSound() {
+            // Short reel tick
+            playSound(300, 0.05, 'sawtooth', 0.1);
+        }
+
+        function playSuccessSound() {
+            // Success chime
+            playSound(523, 0.18, 'sine', 0.3); // C
+            setTimeout(() => playSound(659, 0.18, 'sine', 0.28), 150); // E
+            setTimeout(() => playSound(784, 0.18, 'sine', 0.26), 300); // G
+        }
+
+        function playFailSound() {
+            // Fail sound
+            playSound(200, 0.3, 'sawtooth', 0.35);
+            setTimeout(() => playSound(150, 0.25, 'sawtooth', 0.3), 120);
+        }
+
+        function playGameOverSound() {
+            // Game over sound
+            playSound(100, 0.45, 'sawtooth', 0.4);
+            setTimeout(() => playSound(80, 0.45, 'sawtooth', 0.38), 180);
+        }
+
+        function playPlink(){
+            // small high blip
+            playSound(900 + Math.random()*300, 0.08, 'sine', 0.18);
+        }
+
+        function playSplash(){
+            if(!ensureAudio() || audioMuted) return;
+            // quick noise-based splash using short buffer
+            const len = Math.floor(audioCtx.sampleRate * 0.35);
+            const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+            const d = buf.getChannelData(0);
+            for(let i=0;i<len;i++) d[i] = (Math.random()*2-1) * (1 - i/len) * 0.8;
+            const src = audioCtx.createBufferSource(); src.buffer = buf;
+            const g = audioCtx.createGain(); g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            src.connect(g); g.connect(masterGain);
+            src.start();
+            const now = audioCtx.currentTime; g.gain.linearRampToValueAtTime(0.6, now + 0.01); g.gain.exponentialRampToValueAtTime(0.00001, now + 0.6);
+            setTimeout(()=> { try{ src.stop(); }catch(e){} }, 800);
+        }
+
+        // Cast charge / release (simpler)
+        let _castChargeOsc = null; let _castChargeGain = null;
+        function startCastCharge(){
+            if(!ensureAudio() || audioMuted || _castChargeOsc) return;
+            _castChargeOsc = audioCtx.createOscillator(); _castChargeOsc.type='sawtooth'; _castChargeOsc.frequency.value = 100 + Math.random()*30;
+            _castChargeGain = audioCtx.createGain(); _castChargeGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            _castChargeOsc.connect(_castChargeGain); _castChargeGain.connect(masterGain);
+            _castChargeOsc.start();
+            _castChargeGain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.25);
+        }
+        function stopCastCharge(){
+            if(!_castChargeOsc) return;
+            const now = audioCtx.currentTime; _castChargeGain.gain.exponentialRampToValueAtTime(0.00001, now + 0.12);
+            setTimeout(()=>{ try{ _castChargeOsc.stop(); }catch(e){} _castChargeOsc = null; _castChargeGain = null; }, 180);
+        }
+        function playCastRelease(){
+            playSound(220, 0.16, 'sawtooth', 0.18);
+        }
+
+        // Reel loop (start/stop)
+        let _reelOsc = null, _reelGain = null;
+        function startReelSound(){
+            if(!ensureAudio() || audioMuted || _reelOsc) return;
+            _reelOsc = audioCtx.createOscillator(); _reelOsc.type='triangle'; _reelOsc.frequency.value = 260 + Math.random()*60;
+            _reelGain = audioCtx.createGain(); _reelGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            _reelOsc.connect(_reelGain); _reelGain.connect(masterGain);
+            _reelOsc.start(); _reelGain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.04);
+        }
+        function stopReelSound(){
+            if(!_reelOsc) return; const now = audioCtx.currentTime; _reelGain.gain.exponentialRampToValueAtTime(0.00001, now + 0.08); setTimeout(()=>{ try{ _reelOsc.stop(); }catch(e){} _reelOsc = null; _reelGain = null; }, 140);
+        }
+
+        function playCatchSound(){
+            playSound(880, 0.18, 'sine', 0.26); setTimeout(()=> playSound(1320, 0.18, 'triangle', 0.22), 80);
+        }
+
+        function playMenuClick(){
+            playSound(900, 0.16, 'square', 0.22);
+        }
+
+        // expose a few helpers globally so other code can trigger them
+        window.playSplash = playSplash; window.playPlink = playPlink; window.startCastCharge = startCastCharge; window.stopCastCharge = stopCastCharge; window.playCastRelease = playCastRelease; window.startReelSound = startReelSound; window.stopReelSound = stopReelSound; window.playCatchSound = playCatchSound; window.playFailSound = playFailSound; window.playMenuClick = playMenuClick;
+
+        startBtn && startBtn.addEventListener('click', function(){
+            if(!audioCtx) initAudio();
+            playMenuClick();
+            startAmbient();
+            const menu = document.querySelector('.menu-screen');
+            if(menu) menu.style.display = 'none';
+            const scene = document.getElementById('gameScene');
+            if(scene) scene.style.display = 'flex';
+        });
+
+        // hook fish clicks to SFX
+        const poolWater = document.querySelector('.pool-water');
+        document.querySelectorAll('.pool-fish').forEach(fish => {
+            fish.style.cursor = 'pointer';
+            fish.addEventListener('click', function(){ 
+                fish.classList.add('jump');
+                setTimeout(()=> fish.classList.remove('jump'), 650);
+                playSplash();
+                playPlink();
+
+                // ripple
+                if(poolWater){
+                    const poolRect = poolWater.getBoundingClientRect();
+                    const fishRect = fish.getBoundingClientRect();
+                    const cx = ((fishRect.left + fishRect.width/2) - poolRect.left) / poolRect.width * 100;
+                    const cy = ((fishRect.top + fishRect.height/2) - poolRect.top) / poolRect.height * 100;
+                    const ripple = document.createElement('div');
+                    ripple.className = 'ripple animate';
+                    ripple.style.left = cx + '%';
+                    ripple.style.top = cy + '%';
+                    ripple.style.position = 'absolute';
+                    ripple.style.zIndex = 49;
+                    poolWater.appendChild(ripple);
+                    setTimeout(()=> ripple.remove(), 900);
+                }
+            });
+        });
+
+        // periodic soft splashes
+        setInterval(function(){
+            if(!ensureAudio() || !ambientRunning) return;
+            if(Math.random() < 0.12) playSplash();
+        }, 7000);
+
+    });
+    </script>
+
 </body>
 </html>
