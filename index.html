@@ -293,37 +293,141 @@
             transform: translateX(-50%);
             width: 90%;
             max-width: 900px;
-            height: 140px;
+            height: 180px;
             z-index: 40;
             pointer-events: none;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
         }
+        .stall-frame { position: relative; width: 100%; height: 100%; pointer-events: none; z-index: 40; }
+        .stall-posts { z-index: 41; }
+        .stall-roof { z-index: 48; }
+        .lanterns { z-index: 49; }
+        .stall-counter { z-index: 46; }
         .stall-roof {
             position: absolute;
-            top: -42px;
+            top: -110px; /* moved higher to accommodate larger roof */
             left: 50%;
             transform: translateX(-50%);
-            width: 120%;
-            height: 88px;
-            background: repeating-linear-gradient(90deg, #b33 0 60px, #f4e5d0 60px 120px);
-            border: 4px solid #7a1f1f;
-            border-radius: 8px 8px 0 0;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+            width: 140%; /* wider overhang */
+            height: 180px; /* taller roof */
+            background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.12) 0px 60px, rgba(255,255,255,0.02) 60px 120px), linear-gradient(180deg,#b33 0%, #7a1515 100%);
+            border-radius: 20px 20px 10px 10px;
+            box-shadow: 0 26px 60px rgba(0,0,0,0.8), inset 0 8px 20px rgba(255,255,255,0.03);
+            border: 3px solid rgba(0,0,0,0.45);
+            overflow: visible;
         }
-        .lanterns { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 60%; display:flex; gap:30px; justify-content:center; z-index: 45; }
-        .lantern { width: 28px; height: 40px; border-radius: 50% 50% 40% 40%; background: radial-gradient(circle at 35% 30%, #fff6d6, #ffb86b); border: 2px solid rgba(0,0,0,0.3); box-shadow: 0 0 18px rgba(255, 150, 80, 0.9); transform-origin: top center; animation: lanternSway 3s ease-in-out infinite; }
-        .lantern.l2 { background: radial-gradient(circle at 35% 30%, #fff6d6, #ffd1e0); box-shadow: 0 0 18px rgba(255, 140, 200, 0.9);} 
-        .lantern.l3 { background: radial-gradient(circle at 35% 30%, #fff6d6, #b8ffea); box-shadow: 0 0 18px rgba(120, 240, 210, 0.9);} 
-        @keyframes lanternSway { 0%{transform: rotate(-2deg)} 50%{transform: rotate(2deg)} 100%{transform: rotate(-2deg)} }
-        .stall-counter { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 60%; height: 44px; background: linear-gradient(180deg,#7a4c2b,#553117); border: 4px solid #3d2817; border-radius: 6px; box-shadow: 0 8px 16px rgba(0,0,0,0.6); z-index: 45; }
+        /* roof valance hidden so it doesn't cover the pool */
+        .stall-roof::before { display:none; }
+
+        .stall-posts { position: absolute; bottom: -180px; left: 50%; transform: translateX(-50%); width: 92%; display:flex; justify-content:space-between; z-index:42; pointer-events:none; }
+        .stall-post { width: 28px; height: 520px; background: linear-gradient(180deg,#6b3f1a,#351f12); border: 4px solid rgba(0,0,0,0.6); border-radius: 8px; box-shadow: 0 12px 30px rgba(0,0,0,0.7), inset 0 4px 8px rgba(255,255,255,0.02); position: relative; }
+        .stall-post::after { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); width: 64px; height: 18px; background: radial-gradient(ellipse at center, rgba(0,0,0,0.65), rgba(0,0,0,0.0)); border-radius: 50%; filter: blur(2px); opacity: 0.85; }
+
+        .lanterns { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 84%; display:flex; gap:8px; justify-content:space-between; z-index: 60; pointer-events:none; }
+        /* Spread 12 rooftop lanterns evenly and stagger sway */
+        .lantern { width: 30px; height: 40px; }
+        .lantern.l1 { animation-delay: 0s }
+        .lantern.l2 { animation-delay: 0.08s }
+        .lantern.l3 { animation-delay: 0.16s }
+        .lantern.l4 { animation-delay: 0.24s }
+        .lantern.l5 { animation-delay: 0.32s }
+        .lantern.l6 { animation-delay: 0.40s }
+        .lantern.l7 { animation-delay: 0.48s }
+        .lantern.l8 { animation-delay: 0.56s }
+        .lantern.l9 { animation-delay: 0.64s }
+        .lantern.l10 { animation-delay: 0.72s }
+        .lantern.l11 { animation-delay: 0.80s }
+        .lantern.l12 { animation-delay: 0.88s }
+
+        .lantern { width: 36px; height: 48px; position: relative; border-radius: 50% 50% 40% 40%; background: radial-gradient(circle at 35% 30%, #fff7d6, #ffcc82); border: 2px solid rgba(0,0,0,0.3); box-shadow: 0 0 28px rgba(255,160,80,0.9); transform-origin: top center; animation: lanternSway 3.2s ease-in-out infinite; display:flex; align-items:center; justify-content:center; }
+        .lantern-core { width: 62%; height: 62%; background: radial-gradient(circle at 35% 35%, #fff3c8,#ffb86b); border-radius: 50%; box-shadow: 0 6px 18px rgba(255,190,110,0.6); position: relative; z-index: 1; }
+        .lantern-core::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 220%; height: 220%; background: radial-gradient(circle, rgba(255,200,120,0.25) 0%, rgba(255,200,120,0.02) 50%, rgba(255,200,120,0.0) 100%); border-radius: 50%; filter: blur(6px); opacity: 0.85; pointer-events: none; z-index: 0; animation: corePulse 3.4s ease-in-out infinite; }
+
+        /* Rooftop lantern color palette (yellow -> dark yellow -> red) */
+        .lantern.l1 .lantern-core { background: radial-gradient(circle at 35% 35%, #fffbe0, #ffec9a); }
+        .lantern.l2 .lantern-core { background: radial-gradient(circle at 35% 35%, #fff7d6, #ffd27a); }
+        .lantern.l3 .lantern-core { background: radial-gradient(circle at 35% 35%, #fff6c2, #ffc84a); }
+        .lantern.l4 .lantern-core { background: radial-gradient(circle at 35% 35%, #fff1b0, #ffb84d); }
+        .lantern.l5 .lantern-core { background: radial-gradient(circle at 35% 35%, #ffe59a, #ffb54a); }
+        .lantern.l6 .lantern-core { background: radial-gradient(circle at 35% 35%, #ffd27a, #e6a200); }
+        .lantern.l7 .lantern-core { background: radial-gradient(circle at 35% 35%, #ffd1a1, #ff9f3b); }
+        .lantern.l8 .lantern-core { background: radial-gradient(circle at 35% 35%, #ffd1e0, #ff8b6b); }
+        .lantern.l9 .lantern-core { background: radial-gradient(circle at 35% 35%, #fff0b8, #ffcf66); }
+        .lantern.l10 .lantern-core { background: radial-gradient(circle at 35% 35%, #ffdfb3, #ffb05a); }
+        .lantern.l11 .lantern-core { background: radial-gradient(circle at 35% 35%, #fff4d9, #ffeb9c); }
+        .lantern.l12 .lantern-core { background: radial-gradient(circle at 35% 35%, #ffd8a8, #ff9f3b); }
+        .lantern.l8 .lantern-core { box-shadow: 0 0 36px rgba(255,110,120,0.95); }
+        .lantern.l6 .lantern-core { box-shadow: 0 0 30px rgba(230,160,40,0.9); }
+
+        /* ensure core pulses are slightly offset per lantern */
+        .lantern.l1 .lantern-core::after { animation-delay: 0s }
+        .lantern.l2 .lantern-core::after { animation-delay: 0.08s }
+        .lantern.l3 .lantern-core::after { animation-delay: 0.16s }
+        .lantern.l4 .lantern-core::after { animation-delay: 0.24s }
+        .lantern.l5 .lantern-core::after { animation-delay: 0.32s }
+        .lantern.l6 .lantern-core::after { animation-delay: 0.40s }
+        .lantern.l7 .lantern-core::after { animation-delay: 0.48s }
+        .lantern.l8 .lantern-core::after { animation-delay: 0.56s }
+        .lantern.l9 .lantern-core::after { animation-delay: 0.64s }
+        .lantern.l10 .lantern-core::after { animation-delay: 0.72s }
+        .lantern.l11 .lantern-core::after { animation-delay: 0.80s }
+        .lantern.l12 .lantern-core::after { animation-delay: 0.88s }
+
+        /* Background floating lanterns (strings + glow) */
+        .bg-lanterns { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 22; }
+        .bg-lantern { position: absolute; transform: translateX(-50%); display:flex; align-items:flex-start; justify-content:center; --delay: 0s; animation: bgFloat 6s ease-in-out infinite; animation-delay: var(--delay); }
+        .bg-lantern::before { content: ''; position: absolute; left: 50%; top: -56px; transform: translateX(-50%); width: 2px; height: 56px; background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.15)); border-radius: 2px; }
+        .bg-lantern .lantern-core { width: 36px; height: 46px; border-radius: 50% 50% 40% 40%; background: radial-gradient(circle at 35% 30%, #fff7d6, #ffcc82); border: 1px solid rgba(0,0,0,0.18); box-shadow: 0 0 28px rgba(255,160,80,0.9); display:flex; align-items:center; justify-content:center; }
+        .bg-lantern::after { content: ''; position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); width: 6px; height: 12px; background: linear-gradient(180deg,#c33,#8b1f1f); border-radius: 3px; box-shadow: 0 6px 10px rgba(0,0,0,0.2); }
+        @keyframes bgFloat { 0% { transform: translateX(-50%) translateY(0) rotate(-2deg); } 50% { transform: translateX(-50%) translateY(-10px) rotate(2deg); } 100% { transform: translateX(-50%) translateY(0) rotate(-2deg); } }
+        @keyframes corePulse { 0% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); } 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } }
+        .lantern::before { content: ''; position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 2px; height: 18px; background: linear-gradient(180deg,#222,#555); border-radius: 2px; }
+        .lantern::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 6px; height: 12px; background: linear-gradient(180deg,#c33,#8b1f1f); border-radius: 3px; box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+        .lantern.l2 { background: radial-gradient(circle at 35% 30%, #fff7d6, #ffd1e0); box-shadow: 0 0 28px rgba(255,140,200,0.9);} 
+        .lantern.l3 { background: radial-gradient(circle at 35% 30%, #fff7d6, #b8ffea); box-shadow: 0 0 28px rgba(120,240,210,0.9);} 
+        @keyframes lanternSway { 0%{transform: rotate(-3deg)} 50%{transform: rotate(3deg)} 100%{transform: rotate(-3deg)} }
+        .lantern-core { animation: lanternGlow 3.4s ease-in-out infinite; }
+        .lantern.l1 { animation-delay: 0s; }
+        .lantern.l2 { animation-delay: 0.18s; }
+        .lantern.l3 { animation-delay: 0.36s; }
+        @keyframes lanternGlow { 0% { box-shadow: 0 6px 14px rgba(255,190,110,0.35); transform: scale(1); } 50% { box-shadow: 0 10px 30px rgba(255,190,110,0.65); transform: scale(1.02); } 100% { box-shadow: 0 6px 14px rgba(255,190,110,0.35); transform: scale(1); } }
+
+        .stall-counter { position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%); width: 64%; height: 72px; background: linear-gradient(180deg,#a56a3d,#7a4c2b); border: 6px solid #3d2817; border-radius: 10px; box-shadow: 0 12px 30px rgba(0,0,0,0.6); z-index: 45; display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; }
+        .counter-trim { width: 88%; height: 14px; background: linear-gradient(180deg,#ffd7a8,#d3a06a); border-radius: 6px; box-shadow: inset 0 2px 0 rgba(255,255,255,0.08); }
+
 
         /* Pool */
-/* Make the pool much wider (nearly full-screen) and responsive, with a basin rim */
-        .pool { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); width: 94%; max-width: none; height: 240px; z-index: 46; pointer-events: none; }
-        .pool-basin { position: absolute; left: 50%; transform: translateX(-50%); width: 100%; height: 100%; border-radius: 56% / 40%; overflow: visible; }
-        .pool-rim { position: absolute; left: 50%; transform: translateX(-50%); width: 96%; height: 44px; bottom: 92%; background: linear-gradient(180deg,#7a4c2b,#4a2f1e); border-radius: 16px; box-shadow: 0 6px 14px rgba(0,0,0,0.6); z-index: 45; border: 3px solid rgba(0,0,0,0.35); }
-        .pool-shadow { position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); width: 96%; height: 28px; background: radial-gradient(ellipse at center, rgba(0,0,0,0.5), rgba(0,0,0,0.02)); border-radius: 50%; z-index: 44; }
-        .pool-water { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 92%; height: 84%; margin: 0 auto; border-radius: 48% / 36%; background: radial-gradient(circle at 50% 25%, #76c9ff 0%, #3a83c6 45%, #1b4d6b 100%); border: 6px solid rgba(100,160,230,0.9); box-shadow: inset 0 14px 40px rgba(255,255,255,0.06), 0 18px 50px rgba(10,30,60,0.62); overflow: hidden; animation: gentleWave 5s ease-in-out infinite alternate; z-index: 46; }
+/* Wider pool with more realistic basin, rim, and water sheen */
+        .pool { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); width: 94%; max-width: none; height: 260px; z-index: 46; pointer-events: none; }
+        .pool-basin { position: absolute; left: 50%; transform: translateX(-50%); width: 100%; height: 100%; border-radius: 56% / 40%; overflow: hidden; background: linear-gradient(180deg,#e6f6ff 0%, #cfeeff 100%); box-shadow: inset 0 6px 28px rgba(255,255,255,0.02); }
+        .pool-rim { z-index: 58; }
+        /* decorative tiles removed so pool appears flush to the rim */
+        .pool-tiles { display: none !important; }
+        /* pool rim removed per user request */
+        .pool-rim { display: none !important; }
+        /* pool rim pseudo removed */
+        .pool-rim::after { display:none; }
+        .pool-shadow { position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); width: 100%; height: 40px; background: radial-gradient(ellipse at center, rgba(0,0,0,0.55), rgba(0,0,0,0.02)); border-radius: 50%; z-index: 44; filter: blur(2px); }
+        .pool-water { position: absolute; left: 50%; top: 18px; bottom: 12px; transform: translateX(-50%); width: 88%; margin: 0 auto; border-radius: 46% / 34%; background: radial-gradient(circle at 50% 20%, #8fd9ff 0%, #3a83c6 45%, #0f3653 100%); border: 6px solid rgba(120,190,255,0.22); box-shadow: inset 0 14px 40px rgba(255,255,255,0.08), 0 22px 60px rgba(10,30,60,0.65); overflow: hidden; animation: gentleWave 6s ease-in-out infinite alternate; z-index: 44; }
+        .pool-water::before { content: ''; position: absolute; left: 0; top: 12%; width: 100%; height: 30%; background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02)); mix-blend-mode: overlay; opacity: 0.35; transform: translateY(-6px); border-radius: inherit; pointer-events:none; }
+        .pool-water::after { content: ''; position: absolute; left: 0; bottom: 6px; width: 100%; height: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0)); opacity: 0.55; filter: blur(2px); pointer-events: none; animation: waterFlicker 6s ease-in-out infinite; }
+        @keyframes waterFlicker { 0% { transform: translateY(0) } 50% { transform: translateY(-2px) } 100% { transform: translateY(0) } }
+        .water-sheen { position: absolute; left: 50%; transform: translateX(-50%); top: 6%; width: 84%; height: 10px; background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0)); border-radius: 6px; opacity: 0.9; z-index: 47; filter: blur(2px); pointer-events:none; }
         @keyframes gentleWave { 0% { transform: translateX(-50%) translateY(0) } 100% { transform: translateX(-50%) translateY(-10px) } }
+
+        /* Responsive tweaks */
+        @media (max-width: 700px) {
+            .market-stall { top: 8%; height: 160px; }
+            .stall-post { height: 220px; width: 22px; }
+            .stall-roof { height: 120px; top: -68px; width: 130%; }
+            .stall-counter { height: 64px; bottom: -24px; width: 80%; }
+            .pool { height: 200px; bottom: 70px; }
+            .pool-water { height: 72%; width: 96%; }
+            .pool-fish { height: 64px; }
+            .lantern { width: 30px; height: 38px; }
+        }
 
         /* Pool fish containers adjusted to show full sprites (no halving) */
         .pool-fish { position: absolute; height: 84px; width: auto; min-width: 72px; overflow: visible; border-radius: 8px; background: transparent; opacity: 0.98; transform-origin: center; box-shadow: none; }
@@ -332,19 +436,76 @@
         /* Ensure pool-water clips fish to the basin shape, while fish image themselves are intact */
         .pool-water { overflow: hidden; }
 
-        .pool-fish.f1 { left: 4%; top: 22%; animation: swim1 9s linear infinite; }
-        .pool-fish.f2 { left: 86%; top: 46%; animation: swim2 11s linear infinite; }
-        .pool-fish.f3 { left: 34%; top: 62%; animation: swim3 10s linear infinite; }
-        .pool-fish.f4 { left: 60%; top: 36%; animation: swim4 8s linear infinite; opacity: 0.95; }
-        .pool-fish.f5 { left: 20%; top: 40%; animation: swim5 9.5s linear infinite; }
-        .pool-fish.f6 { left: 70%; top: 68%; animation: swim6 8.8s linear infinite; }
+        .pool-fish.f1 { left: 4%; top: 22%; animation: swim1 14s linear infinite; }
+        .pool-fish.f2 { left: 86%; top: 46%; animation: swim2 16s linear infinite; }
+        .pool-fish.f3 { left: 34%; top: 62%; animation: swim3 13s linear infinite; }
+        .pool-fish.f4 { left: 60%; top: 36%; animation: swim4 15s linear infinite; opacity: 0.95; }
+        .pool-fish.f5 { left: 20%; top: 40%; animation: swim5 14s linear infinite; }
+        .pool-fish.f6 { left: 70%; top: 68%; animation: swim6 16s linear infinite; }
 
-        @keyframes swim1 { 0% { transform: translateX(0) translateY(0) rotate(0deg) } 50% { transform: translateX(560px) translateY(-8px) rotate(12deg) } 100% { transform: translateX(0) translateY(0) rotate(0deg) } }
-        @keyframes swim2 { 0% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(1); } 50% { transform: translateX(-700px) translateY(10px) rotate(0deg) scaleX(-1); } 100% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(1); } }
-        @keyframes swim3 { 0% { transform: translateX(0) translateY(0) rotate(10deg) } 50% { transform: translateX(460px) translateY(-6px) rotate(6deg) } 100% { transform: translateX(0) translateY(0) rotate(10deg) } }
-        @keyframes swim4 { 0% { transform: translateX(0) translateY(0) rotate(-5deg) } 50% { transform: translateX(-520px) translateY(6px) rotate(-12deg) } 100% { transform: translateX(0) translateY(0) rotate(-5deg) } }
-        @keyframes swim5 { 0% { transform: translateX(0) translateY(0) rotate(8deg) } 50% { transform: translateX(420px) translateY(-10px) rotate(18deg) } 100% { transform: translateX(0) translateY(0) rotate(8deg) } }
-        @keyframes swim6 { 0% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(1); } 50% { transform: translateX(-500px) translateY(12px) rotate(0deg) scaleX(-1); } 100% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(1); } }
+        /* Duplicate fish variants (extra copies with slight offsets & delays) */
+        .pool-fish.f1b { left: 12%; top: 26%; animation: swim1 15s linear infinite; animation-delay: 1.2s; opacity: 0.96; }
+        .pool-fish.f2b { left: 78%; top: 52%; animation: swim2 17s linear infinite; animation-delay: 0.8s; opacity: 0.98; }
+        .pool-fish.f3b { left: 38%; top: 66%; animation: swim3 14s linear infinite; animation-delay: 1.6s; opacity: 0.95; }
+        .pool-fish.f4b { left: 64%; top: 40%; animation: swim4 16s linear infinite; animation-delay: 0.4s; opacity: 0.96; }
+        .pool-fish.f5b { left: 24%; top: 44%; animation: swim5 15s linear infinite; animation-delay: 2s; opacity: 0.96; }
+        .pool-fish.f6b { left: 74%; top: 72%; animation: swim6 17s linear infinite; animation-delay: 1s; opacity: 0.96; }
+
+        /* Make fish feel alive: subtle bob & rotation on the image itself */
+        .pool-fish img { animation: fishFloat 4.8s ease-in-out infinite; transform-origin: 50% 50%; }
+        @keyframes fishFloat { 0% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-3px) rotate(-2deg); } 50% { transform: translateY(-6px) rotate(2deg); } 75% { transform: translateY(-3px) rotate(-1deg); } 100% { transform: translateY(0) rotate(0deg); } }
+
+        /* Per-class default swim distances (px) - JS will randomize these at load */
+        .pool-fish.f1, .pool-fish.f1b { --swim-dist: 560px; }
+        .pool-fish.f2, .pool-fish.f2b { --swim-dist: -700px; }
+        .pool-fish.f3, .pool-fish.f3b { --swim-dist: 460px; }
+        .pool-fish.f4, .pool-fish.f4b { --swim-dist: -520px; }
+        .pool-fish.f5, .pool-fish.f5b { --swim-dist: 420px; }
+        .pool-fish.f6, .pool-fish.f6b { --swim-dist: -500px; }
+
+
+        @keyframes swim1 {
+            0% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(-1); }
+            49% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(-6px) rotate(10deg) scaleX(-1); }
+            50% { transform: translateX(var(--swim-dist)) translateY(-8px) rotate(12deg) scaleX(-1); }
+            51% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(-6px) rotate(10deg) scaleX(1); }
+            100% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(1); }
+        }
+        @keyframes swim2 {
+            0% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(1); }
+            49% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(9px) rotate(0deg) scaleX(1); }
+            50% { transform: translateX(var(--swim-dist)) translateY(10px) rotate(0deg) scaleX(1); }
+            51% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(9px) rotate(0deg) scaleX(-1); }
+            100% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(-1); }
+        }
+        @keyframes swim3 {
+            0% { transform: translateX(0) translateY(0) rotate(10deg) scaleX(-1); }
+            49% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(-5px) rotate(8deg) scaleX(-1); }
+            50% { transform: translateX(var(--swim-dist)) translateY(-6px) rotate(6deg) scaleX(-1); }
+            51% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(-5px) rotate(8deg) scaleX(1); }
+            100% { transform: translateX(0) translateY(0) rotate(10deg) scaleX(1); }
+        }
+        @keyframes swim4 {
+            0% { transform: translateX(0) translateY(0) rotate(-5deg) scaleX(1); }
+            49% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(5px) rotate(-10deg) scaleX(1); }
+            50% { transform: translateX(var(--swim-dist)) translateY(6px) rotate(-12deg) scaleX(1); }
+            51% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(5px) rotate(-10deg) scaleX(-1); }
+            100% { transform: translateX(0) translateY(0) rotate(-5deg) scaleX(-1); }
+        }
+        @keyframes swim5 {
+            0% { transform: translateX(0) translateY(0) rotate(8deg) scaleX(-1); }
+            49% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(-8px) rotate(14deg) scaleX(-1); }
+            50% { transform: translateX(var(--swim-dist)) translateY(-10px) rotate(18deg) scaleX(-1); }
+            51% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(-8px) rotate(14deg) scaleX(1); }
+            100% { transform: translateX(0) translateY(0) rotate(8deg) scaleX(1); }
+        }
+        @keyframes swim6 {
+            0% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(1); }
+            49% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(10px) rotate(0deg) scaleX(1); }
+            50% { transform: translateX(var(--swim-dist)) translateY(12px) rotate(0deg) scaleX(1); }
+            51% { transform: translateX(calc(var(--swim-dist) * 0.975)) translateY(10px) rotate(0deg) scaleX(-1); }
+            100% { transform: translateX(0) translateY(0) rotate(0deg) scaleX(-1); }
+        }
 
         .pool-fish.jump { animation: jump 0.6s ease forwards; }
         @keyframes jump { 0% { transform: translateY(0) } 50% { transform: translateY(-28px) scale(1.06) } 100% { transform: translateY(0) } }
@@ -597,29 +758,66 @@
     <div class="background-image-placeholder"></div>
 
     <div class="game-scene" id="gameScene">
+        <div class="bg-lanterns" aria-hidden="true">
+            <div class="bg-lantern l1" style="--left:6%; --top:10%; --delay:0s; left:6%; top:10%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l2" style="--left:14%; --top:8%; --delay:0.4s; left:14%; top:8%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l3" style="--left:22%; --top:12%; --delay:0.8s; left:22%; top:12%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l4" style="--left:30%; --top:6%; --delay:1.2s; left:30%; top:6%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l5" style="--left:38%; --top:9%; --delay:1.6s; left:38%; top:9%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l6" style="--left:46%; --top:7%; --delay:0.7s; left:46%; top:7%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l7" style="--left:54%; --top:11%; --delay:1.0s; left:54%; top:11%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l8" style="--left:62%; --top:6%; --delay:0.5s; left:62%; top:6%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l9" style="--left:70%; --top:13%; --delay:1.3s; left:70%; top:13%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l10" style="--left:78%; --top:9%; --delay:0.9s; left:78%; top:9%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l11" style="--left:86%; --top:12%; --delay:1.7s; left:86%; top:12%;"><div class="lantern-core"></div></div>
+            <div class="bg-lantern l12" style="--left:94%; --top:7%; --delay:1.1s; left:94%; top:7%;"><div class="lantern-core"></div></div>
+        </div>
         <!-- Night market stall & water pool -->
         <div class="market-stall" aria-hidden="true">
-            <div class="stall-roof"></div>
-            <div class="lanterns">
-                <div class="lantern l1"></div>
-                <div class="lantern l2"></div>
-                <div class="lantern l3"></div>
+            <div class="stall-frame">
+                <div class="stall-roof"></div>
+                <div class="stall-posts" aria-hidden="true">
+                    <div class="stall-post left"></div>
+                    <div class="stall-post right"></div>
+                </div>
+                <div class="lanterns" aria-hidden="true">
+                    <div class="lantern l1"><div class="lantern-core"></div></div>
+                    <div class="lantern l2"><div class="lantern-core"></div></div>
+                    <div class="lantern l3"><div class="lantern-core"></div></div>
+                    <div class="lantern l4"><div class="lantern-core"></div></div>
+                    <div class="lantern l5"><div class="lantern-core"></div></div>
+                    <div class="lantern l6"><div class="lantern-core"></div></div>
+                    <div class="lantern l7"><div class="lantern-core"></div></div>
+                    <div class="lantern l8"><div class="lantern-core"></div></div>
+                    <div class="lantern l9"><div class="lantern-core"></div></div>
+                    <div class="lantern l10"><div class="lantern-core"></div></div>
+                    <div class="lantern l11"><div class="lantern-core"></div></div>
+                    <div class="lantern l12"><div class="lantern-core"></div></div>
+                </div>
+                <div class="stall-counter"><div class="counter-trim"></div></div>
             </div>
-            <div class="stall-counter"></div>
         </div>
 
         <div class="pool" id="pool">
             <div class="pool-basin">
                 <div class="pool-rim"></div>
+                <div class="pool-tiles" aria-hidden="true"></div>
                 <div class="pool-shadow"></div>
                 <div class="pool-water">
+                    <div class="water-sheen" aria-hidden="true"></div>
                     <!-- Wrap fish in rounded containers and use all pictures from /picture -->
                     <div class="pool-fish f1"><img src="picture/goldfish1.png" alt="goldfish"></div>
+                    <div class="pool-fish f1b"><img src="picture/goldfish1.png" alt="goldfish"></div>
                     <div class="pool-fish f2"><img src="picture/koi.png" alt="koi"></div>
+                    <div class="pool-fish f2b"><img src="picture/koi.png" alt="koi"></div>
                     <div class="pool-fish f3"><img src="picture/gold%20koi.png" alt="gold-koi"></div>
+                    <div class="pool-fish f3b"><img src="picture/gold%20koi.png" alt="gold-koi"></div>
                     <div class="pool-fish f4"><img src="picture/tuna.png" alt="tuna"></div>
+                    <div class="pool-fish f4b"><img src="picture/tuna.png" alt="tuna"></div>
                     <div class="pool-fish f5"><img src="picture/goldfish2.png" alt="goldfish2"></div>
+                    <div class="pool-fish f5b"><img src="picture/goldfish2.png" alt="goldfish2"></div>
                     <div class="pool-fish f6"><img src="picture/bass.png" alt="bass"></div>
+                    <div class="pool-fish f6b"><img src="picture/bass.png" alt="bass"></div>
 
                     <div class="ripple r1"></div>
                     <div class="ripple r2"></div>
@@ -841,6 +1039,52 @@
                 document.querySelectorAll('.pool-fish img').forEach(function(img) {
                     makeTransparentSprite(img, 240);
                 });
+
+                // Randomize fish positions, animation delays and swim distances to avoid clustering
+                (function randomizeFishPool(){
+                    var pool = document.querySelector('.pool-water');
+                    if (!pool) return;
+                    var fishes = Array.from(pool.querySelectorAll('.pool-fish'));
+                    function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+                    // Initial random placement and distance
+                    fishes.forEach(function(fish){
+                        var left = clamp(Math.random() * 80 + 6, 3, 92); // ~6% - 86%
+                        var top = clamp(Math.random() * 55 + 18, 12, 78); // ~18% - 73%
+                        fish.style.left = left + '%';
+                        fish.style.top = top + '%';
+                        fish.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+
+                        // baseline class to pick sign and ranges
+                        var cls = Array.from(fish.classList).find(function(c){ return /^f[1-6]b?$/.test(c); }) || '';
+                        var sign = /f(2|4|6)b?/.test(cls) ? -1 : 1;
+                        var min = 300, max = 720;
+                        if (cls.indexOf('f2') === 0) { min = 400; max = 900; }
+                        else if (cls.indexOf('f4') === 0) { min = 380; max = 600; }
+                        else if (cls.indexOf('f6') === 0) { min = 360; max = 520; }
+                        else if (cls.indexOf('f3') === 0) { min = 320; max = 520; }
+                        else if (cls.indexOf('f5') === 0) { min = 300; max = 520; }
+
+                        var dist = Math.floor(Math.random() * (max - min) + min) * sign;
+                        fish.style.setProperty('--swim-dist', dist + 'px');
+                    });
+
+                    // simple de-cluster passes
+                    for (var pass = 0; pass < 4; pass++){
+                        for (var i = 0; i < fishes.length; i++){
+                            for (var j = i + 1; j < fishes.length; j++){
+                                var a = fishes[i], b = fishes[j];
+                                var ax = parseFloat(a.style.left), ay = parseFloat(a.style.top);
+                                var bx = parseFloat(b.style.left), by = parseFloat(b.style.top);
+                                if (Math.abs(ax - bx) < 7 && Math.abs(ay - by) < 6){
+                                    // nudge b away
+                                    b.style.left = clamp(bx + (Math.random() * 12 + 6), 3, 92) + '%';
+                                    b.style.top = clamp(by + (Math.random() * 10 - 5), 10, 78) + '%';
+                                }
+                            }
+                        }
+                    }
+                })();
             });
         });
 
